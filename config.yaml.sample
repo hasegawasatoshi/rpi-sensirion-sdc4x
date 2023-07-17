@@ -1,0 +1,10 @@
+influxdb:
+  host: localhost
+  port: 8086
+  dbuser: scd4x
+  dbuser: scd4x
+  dbname: ambient
+  retension: 156w
+app:
+  monitoring:
+    intervals:  3

@@ -1,0 +1,15 @@
+[Unit]
+Description=Sensirion SCD4x monitoring service
+After=influxdb.service
+
+[Service]
+WorkingDirectory=/opt/ambient
+ExecStart=python /opt/ambient/bin/sensirion-scd4x-monitor.py -c /opt/ambient/etc/config.yaml
+Type=simple
+User=root
+StandardOutput=syslog
+StandardError=syslog
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
