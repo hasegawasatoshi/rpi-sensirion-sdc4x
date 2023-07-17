@@ -5,3 +5,6 @@ influxdb:
   dbuser: scd4x
   dbname: ambient
   retension: 156w
+app:
+  monitoring:
+    intervals:  3
