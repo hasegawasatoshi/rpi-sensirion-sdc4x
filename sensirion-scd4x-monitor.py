@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 import adafruit_scd4x
 import board
 import yaml
-from influxdb import InfluxDBClient
+from influxdb import InfluxDBClient, exceptions
 
 logging.basicConfig(
     format="[%(module)s] [%(levelname)s] %(message)s",
@@ -64,8 +64,11 @@ class DB:
             }
         ]
         logger.debug(data)
-        self.client .write_points(data)
-
+        try:
+            self.client .write_points(data)
+        except exceptions.InfluxDBServerError as e:
+            logging.error(f'{e}')
+            raise e
 
 def mainloop(sensor, db):
     try:

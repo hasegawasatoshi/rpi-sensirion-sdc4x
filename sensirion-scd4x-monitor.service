@@ -9,6 +9,7 @@ Type=simple
 User=root
 StandardOutput=syslog
 StandardError=syslog
+Restart=on-failure
 
 [Install]
 WantedBy=default.target
