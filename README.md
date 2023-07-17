@@ -37,3 +37,26 @@ Comfirm readings
 ```
 python query-data.py
 ```
+
+## Install
+
+Install python modules in systemwide.
+```
+sudo pip install requirements.txt
+```
+
+Install related files.
+```
+sudo mkdir -p /opt/ambient/bin
+sudo mkdir -p /opt/ambient/etc
+sudo install -v -o root -g root -m 644 -t /opt/ambient/bin ./sensirion-scd4x-monitor.py
+sudo install -v -o root -g root -m 644 -t /opt/ambient/etc ./config.yaml
+sudo install -v -o root -g root -m 644 -t /usr/lib/systemd/system ./sensirion-scd4x-monitor.service
+sudo systemctl daemon-reload
+```
+
+Start and enable monitoring servcie.
+```
+sudo systemctl start sensirion-scd4x-monitor.service
+sudo systemctl enable sensirion-scd4x-monitor.service
+```
