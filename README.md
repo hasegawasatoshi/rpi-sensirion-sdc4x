@@ -25,7 +25,7 @@ sudo systemctl enable influxdb
 
 Setup InfluxDB
 ```
-python setup-influxdb.py 
+python influxdb-setup.py 
 ```
 
 Run the monitoring service
@@ -35,7 +35,7 @@ python sensirion-scd4x-monitor.py --debug
 
 Comfirm readings
 ```
-python query-data.py
+python influxdb-query.py
 ```
 
 ## Install
