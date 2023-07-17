@@ -76,7 +76,7 @@ def mainloop(sensor, db):
                 logger.debug("Temperature: %0.1f *C" % readings[1])
                 logger.debug("Humidity: %0.1f %%" % readings[2])
                 db.write(readings[0], readings[1], readings[2])
-            time.sleep(3)
+            time.sleep(CONFIG.get('app').get('monitoring').get('intervals'))
 
     except KeyboardInterrupt:
         logger.error('Stopped by keyboard imput (ctrl-c)')
