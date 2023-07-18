@@ -1,0 +1,11 @@
+[Unit]
+Description=E-ink paper display service
+After=influxdb.service
+
+[Timer]
+OnBootSec=10m
+OnUnitActiveSec=10m
+Unit=waveshare-epd2in66b-display.service
+
+[Install]
+WantedBy=multi-user.target

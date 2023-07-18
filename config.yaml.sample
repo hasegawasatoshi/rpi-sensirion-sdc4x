@@ -8,3 +8,7 @@ influxdb:
 app:
   monitoring:
     intervals:  3
+  font:
+    path: /usr/share/fonts/opentype/ipafont-gothic/ipagp.ttf
+  display:
+    intervals: 10m
