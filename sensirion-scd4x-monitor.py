@@ -70,6 +70,7 @@ class DB:
             logging.error(f'{e}')
             raise e
 
+
 def mainloop(sensor, db):
     try:
         while True:
