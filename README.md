@@ -3,8 +3,13 @@ Monitoring service for Sensirion SCD4x
 
 ## Usage
 
+Enable I2C and SPI
+* Run `raspi-config` command and select `Interface Options` - `I5 I2C` to enable I2C.
+* As same as select `Interface Options` - `I4 SPI` to enable SPI.
+
 Create a virtual environment.
 ```
+sudo apt-get install -y python3-pip python3-venv
 python3 -m venv .venv
 . .venv/bin/activate
 pip install -r requirements.txt 
@@ -18,7 +23,7 @@ vim config.yaml
 
 Install InfluxDB
 ```
-sudo apt install influxdb
+sudo apt install -y influxdb
 sudo systemctl start influxdb
 sudo systemctl enable influxdb
 ```
@@ -47,7 +52,7 @@ python influxdb-query.py
 
 Install python modules in systemwide.
 ```
-sudo pip install requirements.txt
+sudo pip install -r requirements.txt
 ```
 
 Install related files.
