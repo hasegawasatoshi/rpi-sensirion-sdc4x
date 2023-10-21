@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+from datetime import datetime
 
 import epaper
 import yaml
@@ -18,13 +19,14 @@ logger = logging.getLogger('RPI-E-ink(epd2in66b)')
 class EPaper:
     def __init__(self, module='epd2in66b'):
         self.base_x = 24
-        self.base_y = 24
-        self.offset_h = 36
+        self.base_y = 22
+        self.offset_h = 32
         self.adjust_w = 120
         self.border_w = 16
 
         # Load font
         font_path = CONFIG.get('app').get('font').get('path') or DEFAULT_FONT_PATH
+        self.font16 = ImageFont.truetype(os.path.join(os.path.dirname(font_path), os.path.basename(font_path)), 16)
         self.font24 = ImageFont.truetype(os.path.join(os.path.dirname(font_path), os.path.basename(font_path)), 24)
         logger.info(f"Load font: {font_path})")
 
@@ -43,14 +45,15 @@ class EPaper:
         drawblack.text((self.base_x, self.base_y), u'CO2', font=self.font24, fill=0)
         drawblack.text((self.base_x, self.base_y + self.offset_h), u'気温', font=self.font24, fill=0)
         drawblack.text((self.base_x, self.base_y + self.offset_h * 2), u'湿度', font=self.font24, fill=0)
+        drawblack.text((self.base_x, self.base_y + self.offset_h * 3), u'更新', font=self.font16, fill=0)
 
         text = u"%d ppm" % co2
         length = drawblack.textlength(text, font=self.font24)
-        drawblack.text((self.epd.width - length + self.adjust_w, 24), text, font=self.font24, fill=0)
+        drawblack.text((self.epd.width - length + self.adjust_w, self.base_y), text, font=self.font24, fill=0)
 
         text = u"%.1f ℃" % tempareture
         length = drawblack.textlength(text, font=self.font24)
-        drawblack.text((self.epd.width - length + self.adjust_w, 24 + 36), text, font=self.font24, fill=0)
+        drawblack.text((self.epd.width - length + self.adjust_w, self.base_y + self.offset_h), text, font=self.font24, fill=0)
 
         text = u"%.1f ％" % humidity
         length = drawblack.textlength(text, font=self.font24)
@@ -59,6 +62,16 @@ class EPaper:
              self.base_y + self.offset_h * 2),
             text,
             font=self.font24,
+            fill=0)
+
+        current_time = datetime.now()
+        text = current_time.strftime("%Y年%m月%d日 %H:%M")
+        length = drawblack.textlength(text, font=self.font16)
+        drawblack.text(
+            (self.epd.width - length + self.adjust_w,
+             self.base_y + self.offset_h * 3),
+            text,
+            font=self.font16,
             fill=0)
 
         # Draw border in red
